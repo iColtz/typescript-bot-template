@@ -19,7 +19,10 @@ const registerInteraction: Function = (client: Bot) => {
                     description: interaction.description ?? "Empty description",
                     options: interaction.options ?? []
                 };
-                await client.application?.commands.create(data);
+                // await client.guilds.cache.get('Guild ID')?.commands.create(data); // Guild commands
+                // await client.guilds.cache.get('Guild ID')?.commands.set([]); // Remove all guild commands
+                await client.application?.commands.create(data); // Global commands
+                // await client.application?.commands.set([]); // Remove all guild commands
             };
         };
     });
