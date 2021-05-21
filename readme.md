@@ -28,8 +28,9 @@
 1.  [Fork](https://github.com/iColtz/typescript-bot-template/fork) the repository.
 2.  Clone your fork:  `git clone https://github.com/your-username/typescript-bot-template.git`
 3.  Create your feature branch:  `git checkout -b my-new-feature`
-4.  Commit your changes:  `git commit -m "Add some feature"`
-5.  Push to the branch:  `git push --set-upstream origin my-new-feature`
-6.  Submit a pull request.
+4.  Stage your changes: `git add .`
+5.  Commit your changes:  `git commit -m "Add some feature"`
+6.  Push to the branch:  `git push --set-upstream origin my-new-feature`
+7.  Submit a pull request.
 ## Author
 > © [iColtz](https://github.com/iColtz).
