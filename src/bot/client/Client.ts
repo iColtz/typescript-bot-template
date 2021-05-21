@@ -1,12 +1,14 @@
-import { Client, Collection } from 'discord.js';
+import { Client, Collection, Intents } from 'discord.js';
 import { CommandRegistry, EventRegistry } from '../struct/registries/export/RegistryIndex';
-import { CommandOptions, EventOptions } from '../types/Options';
+import { CommandOptions, EventOptions, InteractionCommandOptions } from '../types/Options';
 import settings from '../settings';
 
 class Bot extends Client {
   public prefix: string;
 
   public commands = new Collection<string, CommandOptions>();
+
+  public interactions = new Collection<string, InteractionCommandOptions>();
 
   public cooldowns = new Collection<string, Collection<string, number>>();
 
@@ -15,7 +17,8 @@ class Bot extends Client {
   public constructor() {
     super({
       /* Discord JS Client Options */
-      disableMentions: 'everyone',
+      intents: Intents.ALL,
+      allowedMentions: { repliedUser: false }
     });
 
     this.prefix = settings.PREFIX;
