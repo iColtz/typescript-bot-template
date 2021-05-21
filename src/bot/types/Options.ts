@@ -1,4 +1,4 @@
-import { PermissionString, Message } from 'discord.js';
+import { PermissionString, Message, ApplicationCommandOptionData, Interaction } from 'discord.js';
 
 export interface CommandOptions {
   name: string,
@@ -15,7 +15,15 @@ export interface CommandOptions {
   exec: (msg: Message, args: string[]) => unknown | Promise<unknown>,
 };
 
+export interface InteractionCommandOptions {
+  name: string,
+  descrition?: string,
+  options?: ApplicationCommandOptionData[],
+  exec: (interactions: Interaction, args: (string | number | boolean | undefined)[]) => unknown | Promise<unknown>
+}
+
 export type CommandType = Omit<CommandOptions, 'exec'>;
+export type InteractionType = Omit<InteractionCommandOptions, 'exec'>;
 
 export interface EventOptions {
   name: string,
