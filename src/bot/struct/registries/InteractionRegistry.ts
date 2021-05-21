@@ -5,8 +5,7 @@ import Bot from "../../client/Client";
 import Interaction from "../Interaction";
 
 const registerInteraction: Function = (client: Bot) => {
-    const interactionFiles = sync(resolve('src/bot/commands/**/*'));
-    console.log(`[Interactions]\tLoaded ${interactionFiles.length} commands`)
+    const interactionFiles = sync(resolve('src/bot/interactions/**/*'));
     interactionFiles.forEach(async (file) => {
         if (/\.(j|t)s$/iu.test(file)) {
             const File = require(file).default;
