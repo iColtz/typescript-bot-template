@@ -5,7 +5,7 @@ import settings from '../settings';
 abstract class MessageEvent extends Event {
   constructor() {
     super({
-      name: 'message',
+      name: 'messageCreate',
     });
   }
 
@@ -17,10 +17,10 @@ abstract class MessageEvent extends Event {
       const command = this.client.commands.get(commandName);
       if (command) {
         if (command.ownerOnly && !settings.BOT_OWNER_ID.includes(message.author.id)) {
-          return message.channel.send('This command can only be used by the owner of the bot.');
+          return void message.channel.send('This command can only be used by the owner of the bot.');
         }
         else if (command.guildOnly && !(message.guild instanceof Guild)) {
-          return message.channel.send('This command can only be used in a guild.');
+          return void message.channel.send('This command can only be used in a guild.');
         }
         if (message.channel instanceof TextChannel) {
           const userPermissions = command.userPermissions;
@@ -34,7 +34,7 @@ abstract class MessageEvent extends Event {
               }
             }
             if (missingPermissions.length) {
-              return message.channel.send(`Your missing these required permissions: ${missingPermissions.join(', ')}`);
+              return void message.channel.send(`Your missing these required permissions: ${missingPermissions.join(', ')}`);
             }
           }
           if (clientPermissions?.length) {
@@ -45,12 +45,12 @@ abstract class MessageEvent extends Event {
               }
             }
             if (missingPermissions.length) {
-              return message.channel.send(`I\'m missing these required permissions: ${missingPermissions.join(', ')}`);
+              return void message.channel.send(`I\'m missing these required permissions: ${missingPermissions.join(', ')}`);
             }
           }
         }
         if (command.requiredArgs && command.requiredArgs > args.length) {
-          return message.channel.send(`Invalid usage of this command, please refer to \`${this.client.prefix}help ${command.name}\``);
+          return void message.channel.send(`Invalid usage of this command, please refer to \`${this.client.prefix}help ${command.name}\``);
         }
         if (command.cooldown) {
           if (!this.client.cooldowns.has(command.name)) {
@@ -65,7 +65,7 @@ abstract class MessageEvent extends Event {
               const expirationTime = cooldown + cooldownAmount;
               if (now < expirationTime) {
                 const timeLeft = (expirationTime - now) / 1000;
-                return message.channel.send(`Wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
+                return void message.channel.send(`Wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
               }
             }
           }
@@ -73,7 +73,7 @@ abstract class MessageEvent extends Event {
           setTimeout(() => timestamps?.delete(message.author.id), cooldownAmount);
         }
         try {
-          return command.exec(message, args);
+          return void command.exec(message, args);
         }
         catch (error) {
           console.log(error);

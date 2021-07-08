@@ -17,7 +17,7 @@ class Bot extends Client {
   public constructor() {
     super({
       /* Discord JS Client Options */
-      intents: Intents.ALL,
+      intents: Intents.FLAGS.GUILDS,
       allowedMentions: { repliedUser: false }
     });
 

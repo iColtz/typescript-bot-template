@@ -4,7 +4,7 @@ import Event from "../struct/Event"
 abstract class InteractionEvent extends Event {
     constructor() {
         super({
-            name: "interaction",
+            name: "interactionCreate",
         });
     };
 

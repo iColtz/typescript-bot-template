@@ -1,4 +1,4 @@
-import { PermissionString, Message, ApplicationCommandOptionData, Interaction } from 'discord.js';
+import { PermissionString, Message, ApplicationCommandOptionData, Interaction, ClientEvents } from 'discord.js';
 
 export interface CommandOptions {
   name: string,
@@ -26,6 +26,6 @@ export type CommandType = Omit<CommandOptions, 'exec'>;
 export type InteractionType = Omit<InteractionCommandOptions, 'exec'>;
 
 export interface EventOptions {
-  name: string,
+  name: keyof ClientEvents,
   once?: boolean,
 };

@@ -21,7 +21,7 @@ abstract class HelpCommand extends Command {
         **Aliases:** ${command.aliases?.length ? command.aliases.join(', ') : 'None'}
         **Description:** ${command.description}
       `))
-      message.channel.send(embed);
+      message.channel.send({ embeds: [embed] });
     }
     else {
       const embed = new MessageEmbed().setColor('BLUE');
@@ -34,9 +34,9 @@ abstract class HelpCommand extends Command {
             commandNames.push(command[1].name);
           }
         }
-        embed.addField(category, commandNames.map(c => `\`${c}\``).join(' '));
+        if (category) embed.addField(category, commandNames.map(c => `\`${c}\``).join(' '));
       }
-      message.channel.send(embed);
+      message.channel.send({ embeds: [embed] });
     }
   }
 
